@@ -80,6 +80,11 @@ func formatValue(key string, meta string, value string) string {
 }
 
 func filterNumber(value string) string {
+    // Fix to be able to get N/A values like "no" fans on Tesla V100
+    if (value == "N/A") {
+        value = "0"
+    }
+
     r := regexp.MustCompile("[^0-9.]")
     return r.ReplaceAllString(value, "")
 }
