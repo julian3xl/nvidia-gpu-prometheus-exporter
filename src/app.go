@@ -83,9 +83,12 @@ func filterNumber(value string) string {
     // Fix to be able to get N/A values like "no" fans on Tesla V100
     if (value == "N/A") {
         value = "0"
+    // Fix to be able to identify broken fans
+    } else if (value == "Unknown Error") {
+        value = "-1"
     }
 
-    r := regexp.MustCompile("[^0-9.]")
+    r := regexp.MustCompile("[^0-9.-]")
     return r.ReplaceAllString(value, "")
 }
 
