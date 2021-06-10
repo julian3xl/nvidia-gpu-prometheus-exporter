@@ -136,9 +136,7 @@ func metrics(w http.ResponseWriter, r *http.Request) {
         io.WriteString(w, formatValue("nvidia_max_power_limit", gpuMetadata, filterNumber(GPU.PowerReadings.MaxPowerLimit)))
 
         for j, ProcessInfo := range GPU.Processes.ProcessInfo {
-            io.WriteString(w, formatValue("nvidia_process_info_pid", gpuMetadata + ", process=\"" + strconv.Itoa(j) + "\"", filterNumber(ProcessInfo.Pid)))
-            io.WriteString(w, formatValue("nvidia_process_info_name", gpuMetadata + ", process=\"" + strconv.Itoa(j) + "\"", filterNumber(ProcessInfo.ProcessName)))
-            io.WriteString(w, formatValue("nvidia_process_info_used_memory", gpuMetadata + ", process=\"" + strconv.Itoa(j) + "\"", filterNumber(ProcessInfo.UsedMemory)))
+            io.WriteString(w, formatValue("nvidia_process_info_used_memory", gpuMetadata + ", pid=\"" + filterNumber(ProcessInfo.Pid) + "\", process_idx=\"" + strconv.Itoa(j) + "\", process_name=\"" + ProcessInfo.ProcessName + "\"", filterNumber(ProcessInfo.UsedMemory)))
         }
     }
 }
